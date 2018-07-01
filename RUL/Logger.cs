@@ -1,6 +1,7 @@
 ﻿/**
  * RUL.Logger
- * 2018.7.1
+ * Ver: 1.0.1
+ * Date: 2018.7.1
  */
 
 using System;
@@ -17,7 +18,7 @@ namespace RUL
 
         private static string NowDate = GetDate();
 
-        private static string LogPath = $"{Directory.GetCurrentDirectory().ToString()}/Logs/{GetDate()}.log";
+        private static string LogPath = $"{Directory.GetCurrentDirectory().ToString()}\\Logs\\{GetDate()}.log";
 
         const ConsoleColor InfoColor = ConsoleColor.White;
         const ConsoleColor WarnColor = ConsoleColor.Yellow;
