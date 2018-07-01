@@ -1,11 +1,21 @@
-﻿using System;
+﻿/**
+ * RUL.Logger
+ * 2018.7.1
+ */
+
+using System;
 using System.IO;
 
 namespace RUL
 {
+    /// <summary>
+    /// Logger
+    /// </summary>
     public class Logger
     {   private static object WriterLocker = new object();
         public static readonly object FileWriterLocker = new object();
+
+        private static string NowDate = GetDate();
 
         private static string LogPath = $"{Directory.GetCurrentDirectory().ToString()}/Logs/{GetDate()}.log";
 
@@ -19,7 +29,7 @@ namespace RUL
         /// </summary>
         public static void Init()
         {
-            Logger.Info($"Logs will be saved in \"{LogPath}\"");
+            Info($"Logs will be saved in \"{LogPath}\"");
         }
 
         /// <summary>
@@ -51,6 +61,7 @@ namespace RUL
             msg = $"{GetTime()}[Error]{msg}";
             Writer(ErrorColor, msg);
         }
+
         /// <summary>
         /// 输出Debug类型的日志
         /// </summary>
@@ -88,7 +99,15 @@ namespace RUL
             if (!Directory.Exists($"{Directory.GetCurrentDirectory().ToString()}/Logs/"))
             {
                 Directory.CreateDirectory($"{Directory.GetCurrentDirectory().ToString()}/Logs/");
-                Logger.Warn("Logs directory is missing, will create now.");
+                Warn("Logs directory is missing, will create now.");
+            }
+
+
+            if (NowDate != GetDate())
+            {
+                Info("System date was changed, the time might be tomorrow.");
+                LogPath = $"{Directory.GetCurrentDirectory().ToString()}/Logs/{GetDate()}.log";
+                Init();
             }
 
             lock (FileWriterLocker)
