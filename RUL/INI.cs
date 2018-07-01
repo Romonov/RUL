@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿/**
+ * RUL.INI
+ * Ver: 1.0.0
+ * Date: 2018.7.1
+ */
+
 using System.Text;
 using System.Runtime.InteropServices;
 
 namespace RUL
 {
-    class INIWorker
+    class INI
     {
         /// <summary>
         /// 写入INI文件方法
@@ -51,7 +53,7 @@ namespace RUL
         /// <param name="section">节点名</param>
         /// <param name="key">键</param>
         /// <returns>该键的值</returns>
-        public static string ReadINI(string ini_file_path, string ini_file_name, string section, string key)
+        public static string Read(string ini_file_path, string ini_file_name, string section, string key)
         {
             string ini_file_path_full = "";
             if ((ini_file_path != "null" || ini_file_path != "") && (ini_file_name != "null" || ini_file_name != ""))
@@ -71,7 +73,7 @@ namespace RUL
         /// <param name="section">节点名</param>
         /// <param name="key">键</param>
         /// <param name="val">值</param>
-        public static void WriteINI(string ini_file_path, string ini_file_name, string section, string key, string val)
+        public static void Write(string ini_file_path, string ini_file_name, string section, string key, string val)
         {
             string ini_file_path_full = "";
 

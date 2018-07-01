@@ -1,5 +1,5 @@
 ﻿/**
- * RUL.Win32Worker
+ * RUL.Win32
  * Ver: 1.0.0
  * Date: 2018.7.1
  */
@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace RUL
 {
-    class Win32Worker
+    class Win32
     {
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private static extern IntPtr FindWindow(
@@ -29,7 +29,7 @@ namespace RUL
         /// <param name="processName">进程名</param>
         /// <param name="className">类型名</param>
         /// <param name="proposeTitle">目标窗口标题</param>
-        public static void ChangeWindowTitle(string processName, string className, string proposeTitle)
+        public static void ChangeTitle(string processName, string className, string proposeTitle)
         {
             IntPtr GameWindow = FindWindow(className, processName);
             SetWindowText(GameWindow, proposeTitle);

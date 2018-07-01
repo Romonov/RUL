@@ -1,6 +1,6 @@
 ﻿/**
- * RUL.SQLWorker
- * Ver: 0.0.1
+ * RUL.SQL
+ * Ver: 0.1.0
  * Date: 2018.7.1
  */
 
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RUL
 {
-    class SQLWorker
+    class SQL
     {
     }
 }
