@@ -79,7 +79,7 @@ namespace RUL
         /// <param name="msg">日志内容</param>
         public static void WriteToFile(string msg)
         {
-            msg = $">{msg}";
+            msg = $"{msg}";
             FileWriter(msg);
         }
 

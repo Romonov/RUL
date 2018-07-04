@@ -46,5 +46,8 @@
     <Compile Include="SQL.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="HTTP\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -14,5 +14,21 @@ namespace RUL
 {
     class SQL
     {
+        public static void Init()
+        {
+
+        }
+
+        public static string Do()
+        {
+
+            return "";
+        }
+
+        public static string Find(string sheet, string key)
+        {
+
+            return "";
+        }
     }
 }
