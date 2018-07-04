@@ -1,6 +1,6 @@
 ﻿/**
  * RUL.Logger
- * Ver: 1.0.1
+ * Ver: 1.0.3
  * Date: 2018.7.1
  */
 
@@ -95,6 +95,7 @@ namespace RUL
             }
         }
 
+        // Todo: 当文件大于2M时更换文件
         private static void FileWriter(string msg)
         {
             if (!Directory.Exists($"{Directory.GetCurrentDirectory().ToString()}/Logs/"))

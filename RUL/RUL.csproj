@@ -43,7 +43,8 @@
     <Compile Include="INI.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SQL.cs" />
+    <Compile Include="SQL\MsSql.cs" />
+    <Compile Include="SQL\MySql.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
