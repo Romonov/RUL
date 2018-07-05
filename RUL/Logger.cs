@@ -109,6 +109,7 @@ namespace RUL
             {
                 Info("System date was changed, the time might be tomorrow.");
                 LogPath = $"{Directory.GetCurrentDirectory().ToString()}/Logs/{GetDate()}.log";
+                NowDate = GetDate();
                 Init();
             }
 
