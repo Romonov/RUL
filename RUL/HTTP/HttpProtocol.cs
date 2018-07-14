@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RUL.HTTP
 {
-    class HttpProcotol
+    class HttpProtocol
     {
         public static HttpMsg Solve(string req)
         {
@@ -40,11 +40,23 @@ namespace RUL.HTTP
                 {
                     ret.Method = Method.Get;
                 }
+
+                // UA
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string[] tmp = lines[i].Split(' ');
+                    if (tmp[0] == "User-Agent:")
+                    {
+                        ret.UA = tmp[1];
+                        for (int j = 2; j < tmp.Length; j++)
+                            ret.UA += $" {tmp[j]}";
+                    }
+                }
             }
             return ret;
         }
 
-        public static string Make(Stat stat, string contentType, string contentLng)
+        public static string Make(Stat stat, string contentType, int contentLng)
         {
             return $"HTTP/1.1 {stat} OK\r\n" + $"Content-Type:{contentType}/html;charset=UTF-8\r\nContent-Length:{contentLng}\r\n\r\n";
         }
