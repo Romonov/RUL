@@ -107,10 +107,10 @@ namespace RUL
 
             if (NowDate != GetDate())
             {
-                Info("System date was changed, the time might be tomorrow.");
                 LogPath = $"{Directory.GetCurrentDirectory().ToString()}/Logs/{GetDate()}.log";
                 NowDate = GetDate();
                 Init();
+                Info("System date was changed, the time might be tomorrow.");
             }
 
             lock (FileWriterLocker)
