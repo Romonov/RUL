@@ -56,9 +56,9 @@ namespace RUL.HTTP
             return ret;
         }
 
-        public static string Make(Stat stat, string contentType, int contentLng)
+        public static string Make(int stat, string contentType, int contentLng)
         {
-            return $"HTTP/1.1 {stat} OK\r\n" + $"Content-Type:{contentType}/html;charset=UTF-8\r\nContent-Length:{contentLng}\r\n\r\n";
+            return $"HTTP/1.1 {stat} \r\n" + $"Content-Type:{contentType};charset=UTF-8\r\nContent-Length:{contentLng}\r\n\r\n";
         }
     }
 
@@ -68,18 +68,6 @@ namespace RUL.HTTP
         public Method Method;
         public string UA;
         public Dictionary<string, string> Post;
-    }
-
-    enum Stat
-    {
-        Code200 = 200,
-        Code301 = 301,
-        Code302 = 302,
-        Code403 = 403,
-        Code404 = 404,
-        Code500 = 500,
-        Code502 = 502,
-        Code503 = 503
     }
 
     enum Method
