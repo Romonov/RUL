@@ -64,6 +64,21 @@ namespace RUL
             GetPrivateProfileString(section, key, "", temp, 1024, ini_file_path_full);
             return temp.ToString();
         }
+        
+        /// <summary>
+         /// 读取INI文件
+         /// </summary>
+         /// <param name="ini_file_path">文件路径</param>
+         /// <param name="ini_file_name">文件名</param>
+         /// <param name="section">节点名</param>
+         /// <param name="key">键</param>
+         /// <returns>该键的值</returns>
+        public static string Read(string ini_file_path_full, string section, string key)
+        {
+            StringBuilder temp = new StringBuilder(1024);
+            GetPrivateProfileString(section, key, "", temp, 1024, ini_file_path_full);
+            return temp.ToString();
+        }
 
         /// <summary>
         /// 写入INI文件
@@ -81,6 +96,19 @@ namespace RUL
             {
                 ini_file_path_full = ini_file_path + ini_file_name;
             }
+            WritePrivateProfileString(section, key, val, ini_file_path_full);
+        }
+
+        /// <summary>
+        /// 写入INI文件
+        /// </summary>
+        /// <param name="ini_file_path">文件路径</param>
+        /// <param name="ini_file_name">文件名</param>
+        /// <param name="section">节点名</param>
+        /// <param name="key">键</param>
+        /// <param name="val">值</param>
+        public static void Write(string ini_file_path_full, string section, string key, string val)
+        {
             WritePrivateProfileString(section, key, val, ini_file_path_full);
         }
     }
