@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace RUL.HTTP
+namespace Maigcpush
 {
     class HttpProtocol
     {
@@ -18,7 +18,18 @@ namespace RUL.HTTP
             {
                 // GET
                 string[] getreqs = lines[0].Split(' ');
-                ret.GetUrl = getreqs[1];
+                string[] getcon = getreqs[1].Split('?');
+                ret.GetUrl = getcon[0];
+
+                //GetData
+                Dictionary<string, string> getdata = new Dictionary<string, string>();
+
+                string[] get_datas = getcon[2].Split('&');
+                foreach (string s in get_datas)
+                {
+                    getdata.Add(s.Split('=')[0], s.Split('=')[1]);
+                }
+                ret.Get = getdata;
 
                 // POST
                 Dictionary<string, string> postdata = new Dictionary<string, string>();
@@ -65,6 +76,7 @@ namespace RUL.HTTP
     struct HttpMsg
     {
         public string GetUrl;
+        public Dictionary<string, string> Get;
         public Method Method;
         public string UA;
         public Dictionary<string, string> Post;

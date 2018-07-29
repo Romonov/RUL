@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace RUL
 {
-    class INI
+    public class INI
     {
         /// <summary>
         /// 写入INI文件方法
