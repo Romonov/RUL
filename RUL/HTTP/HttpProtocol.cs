@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 namespace RUL.HTTP
 {
     class HttpProtocol
     {
-        public static HttpMsg Solve(string req)
+        public static Request Solve(string req)
         {
-            HttpMsg ret = new HttpMsg();
+            Request ret = new Request();
 
             string[] lines = req.Split(new string[] { "\r\n" }, StringSplitOptions.None);
 
@@ -19,7 +20,7 @@ namespace RUL.HTTP
                 // GET
                 string[] getreqs = lines[0].Split(' ');
                 string[] getcon = getreqs[1].Split('?');
-                ret.GetUrl = getcon[0];
+                ret.Url = getcon[0];
 
                 //GetData
                 Dictionary<string, string> getdata = new Dictionary<string, string>();
@@ -35,21 +36,16 @@ namespace RUL.HTTP
                 Dictionary<string, string> postdata = new Dictionary<string, string>();
                 if (lines.Contains(""))
                 {
-                    ret.Method = Method.Post;
+                    ret.ReqType = Method.Post;
                     string post_data = lines[lines.Length - 1];
                     if (post_data != "")
                     {
-                        string[] post_datas = post_data.Split('&');
-                        foreach (string s in post_datas)
-                        {
-                            postdata.Add(s.Split('=')[0], s.Split('=')[1]);
-                        }
+                        ret.Post = post_data;
                     }
-                    ret.Post = postdata;
                 }
                 else
                 {
-                    ret.Method = Method.Get;
+                    ret.ReqType = Method.Get;
                 }
 
                 // UA
@@ -73,24 +69,37 @@ namespace RUL.HTTP
         }
     }
 
-    struct HttpMsg
+    struct Request
     {
-        public string GetUrl;
+        public Method ReqType;
+        public Protocol ReqProtocol;
+        public string Url;
+        public IPAddress From;
         public Dictionary<string, string> Get;
-        public Method Method;
         public string UA;
-        public Dictionary<string, string> Post;
+        public string[] AcceptType;
+        public string[] AcceptEncoding;
+        public string[] AcceptLanguage;
+        public string Cookies;
+        public string Post;
     }
 
     enum Method
     {
-        Get,
-        Post,
-        Head,
-        Put,
-        Delete,
-        Options,
-        Trace,
-        Conntect
+        Get = 0,
+        Post = 1,
+        Head = 2,
+        Put = 3,
+        Delete = 4,
+        Options = 5,
+        Trace = 6,
+        Conntect = 7
+    }
+
+    enum Protocol
+    {
+        HTTP10,
+        HTTP11,
+        HTTPS
     }
 }
