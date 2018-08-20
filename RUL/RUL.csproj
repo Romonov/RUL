@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RUL</RootNamespace>
     <AssemblyName>RUL</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="StriveEngine">
       <HintPath>Using\StriveEngine.dll</HintPath>
     </Reference>
@@ -50,8 +48,9 @@
     <Compile Include="HTTP\SocketHttp.cs" />
     <Compile Include="INI.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Magicpush\Notice.cs" />
+    <Compile Include="Magicpush\GetNotice.cs" />
     <Compile Include="Magicpush\Structures.cs" />
+    <Compile Include="MathHelper\GCD.cs" />
     <Compile Include="MathHelper\Triangle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQL\MsSql.cs" />
@@ -60,8 +59,5 @@
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

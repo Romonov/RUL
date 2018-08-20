@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using StriveEngine;
+﻿using StriveEngine;
 using StriveEngine.Core;
 using StriveEngine.Tcp.Passive;
 using System;
@@ -7,14 +6,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RUL.Magicpush
 {
-    public class Notice
+    public class GetNotice
     {
         /// <summary>
         /// 获取魔推的公告消息
@@ -43,7 +41,7 @@ namespace RUL.Magicpush
                 if (str[i] == "")
                     break;
                 str[i] += "}";
-                list.Add(JsonConvert.DeserializeObject<Structures.Notice>(str[i]));
+                //list.Add(JsonConvert.DeserializeObject<Structures.Notice>(str[i]));
             }
             return list;
         }

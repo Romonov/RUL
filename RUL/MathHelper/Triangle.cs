@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RUL.MathHelper
 {
-    class Triangle
+    public class Triangle
     {
         public static bool IsTriangle(double a, double b, double c)
         {
