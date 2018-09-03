@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,68 +16,62 @@ namespace RUL.Magicpush
         /// 获取魔推的公告消息
         /// </summary>
         /// <returns>公告消息列表</returns>
-        public static List<Structures.Notice> Get()
+        public static List<Notice> Get()
         {
-            List<Structures.Notice> list = new List<Structures.Notice>();
+            List<Notice> list = new List<Notice>();
 
-            WebRequest request = WebRequest.Create("http://magicpush.romonov.com/Notice");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://magicpush.romonov.com:45679/notice");
+            request.Method = "GET";
+            request.ContentType = "text/html;charset=UTF-8";
 
-            ((HttpWebRequest)request).UserAgent = "Magicpush Client";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream responseStream = response.GetResponseStream();
+            StreamReader streamReader = new StreamReader(responseStream, Encoding.Default);
+            string returnString = streamReader.ReadToEnd();
+            streamReader.Close();
+            responseStream.Close();
 
-            WebResponse response = request.GetResponse();
-
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-            string responseFromServer = reader.ReadToEnd();
-            Console.WriteLine(responseFromServer);
-            reader.Close();
-            response.Close();
-            string[] str = responseFromServer.Split('}');
-
-            for (int i = 0; i < str.Length; i++)
+            MpNotices Notices = JsonConvert.DeserializeObject<MpNotices>(returnString);
+            for (int i = 0; i < MpNotices.Notices.Length; i++)
             {
-                if (str[i] == "")
-                    break;
-                str[i] += "}";
-                //list.Add(JsonConvert.DeserializeObject<Structures.Notice>(str[i]));
+                list.Add(MpNotices.Notices[i]);
             }
+
             return list;
         }
-
-        /*
-        HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://magicpush.romonov.com/Notice");
-        req.Method = "GET";
-        using (WebResponse wr = req.GetResponse())
-        {
-
-            string notice = wr.ToString();// Todo
-            byte[] byteArray = Encoding.Default.GetBytes(notice);
-
-
-        }
     }
-    public static string GetHttp(string url, HttpContent httpContext)
+
+    public struct Notice
     {
-        string queryString = "?";
-        foreach (string key in httpContext.Request.QueryString.AllKeys)
-        {
-            queryString += key + "=" + httpContext.Request.QueryString[key] + "&";
-        }
-        queryString = queryString.Substring(0, queryString.Length - 1);
-        HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url + queryString);
-        httpWebRequest.ContentType = "application/json";
-        httpWebRequest.Method = "GET";
-        httpWebRequest.Timeout = 20000;
-        byte[] btBodys = Encoding.UTF8.GetBytes(body);
-        httpWebRequest.ContentLength = btBodys.Length;
-        httpWebRequest.GetRequestStream().Write(btBodys, 0, btBodys.Length);
-        HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-        StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
-        string responseContent = streamReader.ReadToEnd();
-        httpWebResponse.Close();
-        streamReader.Close();
-        return responseContent;
+        public int ID;
+        public string Title;
+        public string Detail;
+        public string Date;
+        public string Time;
+        public string Link;
+        public int ColorR;
+        public int ColorG;
+        public int ColorB;
+    }
+
+    public struct MpNotices
+    {
+        public static Notice[] Notices;
+    }
+
+    /*
+    public struct Update
+    {
+        public int ID;
+        public string Project;
+        public string UpdateLog;
+        public string Date;
+        public string Time;
+        public string DetailLink;
+        public string DownloadLink;
+        public int ColorR;
+        public int ColorG;
+        public int ColorB;
     }
     */
-    }
 }

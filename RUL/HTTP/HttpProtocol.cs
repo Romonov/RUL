@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace Maigcpush
+namespace RUL.HTTP
 {
-    class HttpProtocol
+    public class HttpProtocol
     {
         public static HttpMsg Solve(string req)
         {
@@ -38,50 +38,73 @@ namespace Maigcpush
 
                 // Get
                 Dictionary<string, string> getdata = new Dictionary<string, string>();
-
-                string[] get_datas = con[2]?.Split('&');
-                foreach (string s in get_datas)
+                if (con.Length > 2)
                 {
-                    getdata.Add(s?.Split('=')[0], s?.Split('=')[1]);
+                    string[] get_datas = con[2].Split('&');
+                    foreach (string s in get_datas)
+                    {
+                        getdata.Add(s.Split('=')[0], s.Split('=')[1]);
+                    }
+                    ret.Get = getdata;
                 }
-                ret.Get = getdata;
 
 
                 // Post
                 if (ret.Method == Method.Post)
                 {
-                    Dictionary<string, string> postdata = new Dictionary<string, string>();
+                    string postdata = "";
 
                     string post_data = lines[lines.Length - 1];
                     if (post_data != "")
                     {
-                        string[] post_datas = post_data.Split('&');
-                        foreach (string s in post_datas)
-                        {
-                            postdata.Add(s.Split('=')[0], s.Split('=')[1]);
-                        }
+                        postdata += post_data;
                     }
-                    ret.Post = postdata;
+                    ret.PostData = postdata;
                 }
 
                 // UA
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    string[] tmp = lines[i].Split(' ');
-                    if (tmp[0] == "User-Agent:")
+                    string[] tmp = lines[i].Split(':');
+                    if (tmp[0] == "User-Agent")
                     {
                         ret.UA = tmp[1];
+                        /*
                         for (int j = 2; j < tmp.Length; j++)
                             ret.UA = $" {tmp[j]}";
+                        */
                     }
                 }
 
                 // RealIP
                 for (int i = 0; i < lines.Length; i++)
                 {
-                    string[] tmp = lines[i].Split(' ');
-                    if (tmp[0] == "X-Forwarded-For:")
-                        ret.From = new IPAddress(Encoding.Default.GetBytes(tmp[1]));
+                    string[] tmp = lines[i].Split(':');
+                    if (tmp[0] == "X-Forwarded-For")
+                    {
+                        ret.From = tmp[1];
+                        break;
+                    }
+                }
+
+                // Connection
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string[] tmp = lines[i].Split(':');
+                    if (tmp[0] == "Connection")
+                    {
+                        if (tmp[1].Contains("keep-alive"))
+                        {
+                            ret.Connection = Connection.KeepAlive;
+                            break;
+                        }
+                        if (tmp[1].Contains("close"))
+                        {
+                            ret.Connection = Connection.Close;
+                            break;
+                        }
+                        ret.Connection = Connection.Other;
+                    }
                 }
             }
             return ret;
@@ -93,14 +116,15 @@ namespace Maigcpush
         }
     }
 
-    struct HttpMsg
+    public struct HttpMsg
     {
         public string Url;
         public Method Method;
         public Dictionary<string, string> Get;
-        public Dictionary<string, string> Post;
+        public string PostData;
         public string UA;
-        public IPAddress From;
+        public string From;
+        public Connection Connection;
 
         // Todo
         public Protocol ReqProtocol;
@@ -110,7 +134,7 @@ namespace Maigcpush
         public string Cookies;
     }
 
-    enum Method
+    public enum Method
     {
         Get,
         Post,
@@ -135,4 +159,10 @@ namespace Maigcpush
         HTTPS
     }
 
+    public enum Connection
+    {
+        Close,
+        KeepAlive,
+        Other
+    }
 }
