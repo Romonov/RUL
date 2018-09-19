@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿/*
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,7 +59,6 @@ namespace RUL.Magicpush
         public static Notice[] Notices;
     }
 
-    /*
     public struct Update
     {
         public int ID;
@@ -73,5 +72,5 @@ namespace RUL.Magicpush
         public int ColorG;
         public int ColorB;
     }
-    */
 }
+*/
