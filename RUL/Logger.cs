@@ -37,29 +37,29 @@ namespace RUL
         /// 输出Info类型的日志
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void Info(string msg)
+        public static void Info<T>(T str)
         {
-            msg = $"{GetTime()}[Info]{msg}";
-            Writer(InfoColor, msg);
+            string msg = $"{GetTime()}[Info]{str.ToString()}";
+            Writer(InfoColor, msg.ToString());
         }
 
         /// <summary>
         /// 输出Warn类型的日志
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void Warn(string msg)
+        public static void Warn<T>(T str)
         {
-            msg = $"{GetTime()}[Warn]{msg}";
-            Writer(WarnColor, msg);
+            string msg = $"{GetTime()}[Warn]{str.ToString()}";
+            Writer(WarnColor, msg.ToString());
         }
 
         /// <summary>
         /// 输出Error类型的日志
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void Error(string msg)
+        public static void Error<T>(T str)
         {
-            msg = $"{GetTime()}[Error]{msg}";
+            string msg = $"{GetTime()}[Error]{str.ToString()}";
             Writer(ErrorColor, msg);
         }
 
@@ -67,9 +67,9 @@ namespace RUL
         /// 输出Debug类型的日志
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void Debug(string msg)
+        public static void Debug<T>(T str)
         {
-            msg = $"{GetTime()}[Debug]{msg}";
+            string msg = $"{GetTime()}[Debug]{str.ToString()}";
             Writer(DebugColor, msg);
         }
 
@@ -77,9 +77,9 @@ namespace RUL
         /// 直接把日志写入文件而不展示给用户
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void WriteToFile(string msg)
+        public static void WriteToFile<T>(T str)
         {
-            msg = $"{msg}";
+            string msg = $"{str.ToString()}";
             FileWriter(msg);
         }
 
