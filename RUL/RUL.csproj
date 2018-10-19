@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesssCode.cs" />
+    <Compile Include="Encode\Base64.cs" />
+    <Compile Include="Encrypt\HashWorker.cs" />
     <Compile Include="HTTP\HttpProtocol.cs" />
     <Compile Include="HTTP\SocketHttp.cs" />
     <Compile Include="INI.cs" />

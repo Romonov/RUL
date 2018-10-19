@@ -9,9 +9,9 @@ namespace RUL.HTTP
 {
     public class HttpProtocol
     {
-        public static HttpMsg Solve(string req)
+        public static HttpReq Solve(string req)
         {
-            HttpMsg ret = new HttpMsg();
+            HttpReq ret = new HttpReq();
 
             string[] lines = req.Split(new string[] { "\r\n" }, StringSplitOptions.None);
 
@@ -116,7 +116,7 @@ namespace RUL.HTTP
         }
     }
 
-    public struct HttpMsg
+    public struct HttpReq
     {
         public string Url;
         public Method Method;
