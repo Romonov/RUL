@@ -10,5 +10,6 @@ namespace RUL.HTTP
 {
     class SocketHttp
     {
-    }
+        // Todo
+    }  
 }

@@ -8,5 +8,6 @@ namespace RUL.SQL
 {
     class SQL
     {
+        // Todo
     }
 }

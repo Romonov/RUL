@@ -54,6 +54,7 @@
     <Compile Include="SQL\MsSql.cs" />
     <Compile Include="SQL\MySql.cs" />
     <Compile Include="SQL\SQL.cs" />
+    <Compile Include="Time.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
