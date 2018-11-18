@@ -110,7 +110,7 @@ namespace RUL
                 LogPath = $"{Directory.GetCurrentDirectory().ToString()}/Logs/{GetDate()}.log";
                 NowDate = GetDate();
                 Init();
-                Info("System date was changed, the time might be tomorrow.");
+                Info("System date was changed, log file will change.");
             }
 
             lock (FileWriterLocker)
