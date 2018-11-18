@@ -43,8 +43,9 @@
     <Compile Include="AccesssCode.cs" />
     <Compile Include="Encode\Base64.cs" />
     <Compile Include="Encrypt\HashWorker.cs" />
-    <Compile Include="HTTP\HttpProtocol.cs" />
-    <Compile Include="HTTP\SocketHttp.cs" />
+    <Compile Include="Net\EmailHelper.cs" />
+    <Compile Include="Net\HttpProtocol.cs" />
+    <Compile Include="Net\SocketHttp.cs" />
     <Compile Include="INI.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Magicpush\GetNotice.cs" />
