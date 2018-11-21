@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Text;
 
 namespace RUL.Net
@@ -110,9 +111,16 @@ namespace RUL.Net
             return ret;
         }
 
-        public static string Make(int stat, string contentType, int contentLng)
+        public static string Make(int Stat, string ContentType, int ContentLng, Dictionary<string, string> ResponseHead)
         {
-            return $"HTTP/1.1 {stat} \r\n" + $"Content-Type:{contentType};charset=UTF-8\r\nContent-Length:{contentLng}\r\n\r\n";
+            string ResponseHeadAdd = "";
+
+            foreach (var item in ResponseHead)
+            {
+                ResponseHeadAdd += $"{item.Key}: {item.Value}";
+            }
+
+            return $"HTTP/1.1 {Stat} \r\n Content-Type:{ContentType};charset=UTF-8\r\n Content-Length:{ContentLng}\r\n {ResponseHeadAdd} \r\n\r\n";
         }
     }
 
