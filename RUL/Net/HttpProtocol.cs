@@ -122,6 +122,11 @@ namespace RUL.Net
 
             return $"HTTP/1.1 {Stat} \r\n Content-Type:{ContentType};charset=UTF-8\r\n Content-Length:{ContentLng}\r\n {ResponseHeadAdd} \r\n\r\n";
         }
+
+        public static string Make(int Stat, string ContentType, int ContentLng)
+        {
+            return $"HTTP/1.1 {Stat} \r\n Content-Type:{ContentType};charset=UTF-8\r\n Content-Length:{ContentLng}\r\n\r\n";
+        }
     }
 
     public struct HttpReq
