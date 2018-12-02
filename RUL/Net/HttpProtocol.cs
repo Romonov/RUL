@@ -111,7 +111,7 @@ namespace RUL.Net
             return ret;
         }
 
-        public static string Make(int Stat, string ContentType, int ContentLng, Dictionary<string, string> ResponseHead)
+        public static string Build(int Stat, string ContentType, int ContentLng, Dictionary<string, string> ResponseHead)
         {
             string ResponseHeadAdd = "";
 
@@ -120,12 +120,12 @@ namespace RUL.Net
                 ResponseHeadAdd += $"{item.Key}: {item.Value}";
             }
 
-            return $"HTTP/1.1 {Stat} \r\n Content-Type:{ContentType};charset=UTF-8\r\n Content-Length:{ContentLng}\r\n {ResponseHeadAdd} \r\n\r\n";
+            return $"HTTP/1.1 {Stat} \r\nContent-Type:{ContentType};charset=UTF-8 \r\nContent-Length:{ContentLng} \r\n{ResponseHeadAdd}\r\n\r\n";
         }
 
-        public static string Make(int Stat, string ContentType, int ContentLng)
+        public static string Build(int Stat, string ContentType, int ContentLng)
         {
-            return $"HTTP/1.1 {Stat} \r\n Content-Type:{ContentType};charset=UTF-8\r\n Content-Length:{ContentLng}\r\n\r\n";
+            return $"HTTP/1.1 {Stat} \r\nContent-Type:{ContentType};charset=UTF-8 \r\nContent-Length:{ContentLng}\r\n\r\n";
         }
     }
 
