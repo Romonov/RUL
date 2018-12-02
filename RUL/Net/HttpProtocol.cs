@@ -117,7 +117,7 @@ namespace RUL.Net
 
             foreach (var item in ResponseHead)
             {
-                ResponseHeadAdd += $"{item.Key}: {item.Value}";
+                ResponseHeadAdd += $"{item.Key}:{item.Value}\r\n";
             }
 
             return $"HTTP/1.1 {Stat} \r\nContent-Type:{ContentType};charset=UTF-8 \r\nContent-Length:{ContentLng} \r\n{ResponseHeadAdd}\r\n\r\n";
