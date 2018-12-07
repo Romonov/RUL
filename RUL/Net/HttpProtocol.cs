@@ -39,9 +39,9 @@ namespace RUL.Net
 
                 // Get
                 Dictionary<string, string> getdata = new Dictionary<string, string>();
-                if (con.Length > 2)
+                if (con.Length > 1)
                 {
-                    string[] get_datas = con[2].Split('&');
+                    string[] get_datas = con[1].Split('&');
                     foreach (string s in get_datas)
                     {
                         getdata.Add(s.Split('=')[0], s.Split('=')[1]);
