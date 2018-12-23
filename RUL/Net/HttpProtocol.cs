@@ -120,12 +120,12 @@ namespace RUL.Net
                 ResponseHeadAdd += $"{item.Key}: {item.Value}\r\n";
             }
 
-            return $"HTTP/1.1 {Stat}\r\nContent-Type: {ContentType}; charset=UTF-8\r\nContent-Length: {ContentLng + 2}\r\n{ResponseHeadAdd}\r\n\r\n";
+            return $"HTTP/1.1 {Stat}\r\nContent-Type: {ContentType}; charset=UTF-8\r\nContent-Length: {ContentLng}\r\n{ResponseHeadAdd}\r\n";
         }
 
         public static string Build(int Stat, string ContentType, int ContentLng)
         {
-            return $"HTTP/1.1 {Stat}\r\nContent-Type: {ContentType}; charset=UTF-8\r\nContent-Length: {ContentLng + 2}\r\n\r\n";
+            return $"HTTP/1.1 {Stat}\r\nContent-Type: {ContentType}; charset=UTF-8\r\nContent-Length: {ContentLng}\r\n\r\n";
         }
     }
 

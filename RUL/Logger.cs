@@ -1,10 +1,4 @@
-﻿/**
- * RUL.Logger
- * Ver: 1.0.3
- * Date: 2018.7.1
- */
-
-using System;
+﻿using System;
 using System.IO;
 
 namespace RUL
@@ -13,8 +7,20 @@ namespace RUL
     /// Logger
     /// </summary>
     public class Logger
-    {   private static object WriterLocker = new object();
-        public static readonly object FileWriterLocker = new object();
+    {
+        /// <summary>
+        /// Logger实例化方法
+        /// </summary>
+        /// <param name="logName">Logger实例名</param>
+        public Logger(string logName)
+        {
+            LogName = logName;
+        }
+
+        private string LogName { get; }
+
+        private static object WriterLocker = new object();
+        private static object FileWriterLocker = new object();
 
         private static string NowDate = GetDate();
 
@@ -23,23 +29,16 @@ namespace RUL
         const ConsoleColor InfoColor = ConsoleColor.White;
         const ConsoleColor WarnColor = ConsoleColor.Yellow;
         const ConsoleColor ErrorColor = ConsoleColor.Red;
+        const ConsoleColor FatalColor = ConsoleColor.DarkRed;
         const ConsoleColor DebugColor = ConsoleColor.Cyan;
-
-        /// <summary>
-        /// 初始化Logger
-        /// </summary>
-        public static void Init()
-        {
-            Info($"Logs will be saved in \"{LogPath}\"");
-        }
 
         /// <summary>
         /// 输出Info类型的日志
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void Info<T>(T str)
+        public void Info<T>(T str)
         {
-            string msg = $"{GetTime()}[Info]{str.ToString()}";
+            string msg = $"{GetTime()}[{LogName}][Info]{str.ToString()}";
             Writer(InfoColor, msg.ToString());
         }
 
@@ -47,9 +46,9 @@ namespace RUL
         /// 输出Warn类型的日志
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void Warn<T>(T str)
+        public void Warn<T>(T str)
         {
-            string msg = $"{GetTime()}[Warn]{str.ToString()}";
+            string msg = $"{GetTime()}[{LogName}][Warn]{str.ToString()}";
             Writer(WarnColor, msg.ToString());
         }
 
@@ -57,19 +56,29 @@ namespace RUL
         /// 输出Error类型的日志
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void Error<T>(T str)
+        public void Error<T>(T str)
         {
-            string msg = $"{GetTime()}[Error]{str.ToString()}";
+            string msg = $"{GetTime()}[{LogName}][Error]{str.ToString()}";
             Writer(ErrorColor, msg);
+        }
+
+        /// <summary>
+        /// 输出Fatal类型的日志
+        /// </summary>
+        /// <param name="msg">日志内容</param>
+        public void Fatal<T>(T str)
+        {
+            string msg = $"{GetTime()}[{LogName}][Error]{str.ToString()}";
+            Writer(FatalColor, msg);
         }
 
         /// <summary>
         /// 输出Debug类型的日志
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void Debug<T>(T str)
+        public void Debug<T>(T str)
         {
-            string msg = $"{GetTime()}[Debug]{str.ToString()}";
+            string msg = $"{GetTime()}[{LogName}][Debug]{str.ToString()}";
             Writer(DebugColor, msg);
         }
 
@@ -77,13 +86,18 @@ namespace RUL
         /// 直接把日志写入文件而不展示给用户
         /// </summary>
         /// <param name="msg">日志内容</param>
-        public static void WriteToFile<T>(T str)
+        public void WriteToFile<T>(T str)
         {
             string msg = $"{str.ToString()}";
             FileWriter(msg);
         }
 
-        private static void Writer(ConsoleColor color, string msg)
+        /// <summary>
+        /// 写入控制台方法
+        /// </summary>
+        /// <param name="color">颜色</param>
+        /// <param name="msg">信息</param>
+        private void Writer(ConsoleColor color, string msg)
         {
             lock (WriterLocker)
             {
@@ -95,21 +109,25 @@ namespace RUL
             }
         }
 
-        // Todo: 当文件大于2M时更换文件
-        private static void FileWriter(string msg)
+
+        /// <summary>
+        /// 写文件方法
+        /// </summary>
+        /// <param name="msg">信息</param>
+        private void FileWriter(string msg)
         {
+            // Todo: 当文件大于2M时更换文件
+
             if (!Directory.Exists($"{Directory.GetCurrentDirectory().ToString()}/Logs/"))
             {
                 Directory.CreateDirectory($"{Directory.GetCurrentDirectory().ToString()}/Logs/");
                 Warn("Logs directory is missing, will create now.");
             }
 
-
             if (NowDate != GetDate())
             {
                 LogPath = $"{Directory.GetCurrentDirectory().ToString()}/Logs/{GetDate()}.log";
                 NowDate = GetDate();
-                Init();
                 Info("System date was changed, log file will change.");
             }
 
@@ -126,154 +144,18 @@ namespace RUL
         /// 获取时间
         /// </summary>
         /// <returns>目前时间，格式：[YYYY-MM-DD hh:mm:ss]</returns>
-        public static string GetTime()
+        private static string GetTime()
         {
-            string Year = DateTime.Now.Year.ToString();
-            string Month = DateTime.Now.Month.ToString();
-            string Day = DateTime.Now.Day.ToString();
-            string Hour = DateTime.Now.Hour.ToString();
-            string Minute = DateTime.Now.Minute.ToString();
-            string Second = DateTime.Now.Second.ToString();
-
-            switch (Month)
-            {
-                case "0":
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                case "6":
-                case "7":
-                case "8":
-                case "9":
-                    Month = "0" + Month;
-                    break;
-                default:
-                    break;
-            }
-
-            switch (Day)
-            {
-                case "0":
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                case "6":
-                case "7":
-                case "8":
-                case "9":
-                    Day = "0" + Day;
-                    break;
-                default:
-                    break;
-            }
-
-            switch (Hour)
-            {
-                case "0":
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                case "6":
-                case "7":
-                case "8":
-                case "9":
-                    Hour = "0" + Hour;
-                    break;
-                default:
-                    break;
-            }
-
-            switch (Minute)
-            {
-                case "0":
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                case "6":
-                case "7":
-                case "8":
-                case "9":
-                    Minute = "0" + Minute;
-                    break;
-                default:
-                    break;
-            }
-
-            switch (Second)
-            {
-                case "0":
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                case "6":
-                case "7":
-                case "8":
-                case "9":
-                    Second = "0" + Second;
-                    break;
-                default:
-                    break;
-            }
-
-            return $"[{Year}-{Month}-{Day} {Hour}:{Minute}:{Second}]";
+            return DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss]");
         }
 
         /// <summary>
         /// 获取日期
         /// </summary>
         /// <returns>目前日期，格式：YYYY-MM-DD</returns>
-        public static string GetDate()
+        private static string GetDate()
         {
-            string Year = DateTime.Now.Year.ToString();
-            string Month = DateTime.Now.Month.ToString();
-            string Day = DateTime.Now.Day.ToString();
-
-            switch (Month)
-            {
-                case "0":
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                case "6":
-                case "7":
-                case "8":
-                case "9":
-                    Month = "0" + Month;
-                    break;
-                default:
-                    break;
-            }
-
-            switch (Day)
-            {
-                case "0":
-                case "1":
-                case "2":
-                case "3":
-                case "4":
-                case "5":
-                case "6":
-                case "7":
-                case "8":
-                case "9":
-                    Day = "0" + Day;
-                    break;
-                default:
-                    break;
-            }
-            return $"{Year}-{Month}-{Day}";
+            return DateTime.Now.ToString("yyyy-MM-dd");
         }
     }
 }
