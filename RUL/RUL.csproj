@@ -48,16 +48,11 @@
     <Compile Include="Encrypt\HashWorker.cs" />
     <Compile Include="Net\EmailHelper.cs" />
     <Compile Include="Net\HttpProtocol.cs" />
-    <Compile Include="Net\SocketHttp.cs" />
     <Compile Include="INI.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Magicpush\GetNotice.cs" />
     <Compile Include="MathHelper\GCD.cs" />
     <Compile Include="MathHelper\Triangle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SQL\MsSql.cs" />
-    <Compile Include="SQL\MySql.cs" />
-    <Compile Include="SQL\SQL.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Win32.cs" />
   </ItemGroup>
