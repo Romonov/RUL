@@ -29,7 +29,7 @@ namespace RUL
         const ConsoleColor InfoColor = ConsoleColor.White;
         const ConsoleColor WarnColor = ConsoleColor.Yellow;
         const ConsoleColor ErrorColor = ConsoleColor.Red;
-        const ConsoleColor FatalColor = ConsoleColor.DarkRed;
+        const ConsoleColor FatalColor = ConsoleColor.Magenta;
         const ConsoleColor DebugColor = ConsoleColor.Cyan;
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace RUL
         /// <param name="msg">日志内容</param>
         public void Fatal<T>(T str)
         {
-            string msg = $"{GetTime()}[{LogName}][Error]{str.ToString()}";
+            string msg = $"{GetTime()}[{LogName}][Fatal]{str.ToString()}";
             Writer(FatalColor, msg);
         }
 
