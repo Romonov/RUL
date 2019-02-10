@@ -15,14 +15,19 @@ namespace RUL
         /// <returns>授权码</returns>
         public static string GetAccessCode(string Password)
         {
-            return MD5(MD5(Password) + TimeStamp());
+            return GetMD5(GetMD5(Password) + TimeStamp());
         }
 
-        private static string MD5(string strText)
+        private static string GetMD5(string str)
         {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] result = md5.ComputeHash(Encoding.Default.GetBytes(strText));
-            return Encoding.Default.GetString(result);
+            string result = "";
+            MD5 md5 = MD5.Create();
+            byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
+            for (int i = 0; i < s.Length; i++)
+            {
+                result = result + s[i].ToString("x2");
+            }
+            return result;
         }
 
         private static string TimeStamp()
