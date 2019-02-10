@@ -20,14 +20,7 @@ namespace RUL
 
         private static string GetMD5(string str)
         {
-            string result = "";
-            MD5 md5 = MD5.Create();
-            byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
-            for (int i = 0; i < s.Length; i++)
-            {
-                result = result + s[i].ToString("x2");
-            }
-            return result;
+            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5").ToString();
         }
 
         private static string TimeStamp()
