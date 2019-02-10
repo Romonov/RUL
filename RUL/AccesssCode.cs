@@ -27,7 +27,7 @@ namespace RUL
 
         private static string TimeStamp()
         {
-            return DateTime.Now.ToString("yyyyMMddHHmmss");
+            return DateTime.Now.ToString("yyyyMMddHHmm");
         }
     }
 }
