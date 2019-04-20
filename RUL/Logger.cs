@@ -30,7 +30,7 @@ namespace RUL
         const ConsoleColor WarnColor = ConsoleColor.Yellow;
         const ConsoleColor ErrorColor = ConsoleColor.Red;
         const ConsoleColor FatalColor = ConsoleColor.Magenta;
-        const ConsoleColor DebugColor = ConsoleColor.Cyan;
+        const ConsoleColor DebugColor = ConsoleColor.Gray;
 
         /// <summary>
         /// 输出Info类型的日志
